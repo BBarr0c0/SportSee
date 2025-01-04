@@ -24,7 +24,7 @@ const Selection = () => {
   }, []);
 
   const handleSelectUser = (userId) => {
-    navigate(`/Home/${userId}`);
+    navigate(`/Profil/${userId}`);
   };
 
   if (error) {

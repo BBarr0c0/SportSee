@@ -16,7 +16,7 @@ const Home = () => {
   const [performanceData, setPerformanceData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [userNotFound, setUserNotFound] = useState(false); // Indicateur pour utilisateur introuvable
+  const [userNotFound, setUserNotFound] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {

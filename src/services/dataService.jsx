@@ -1,4 +1,4 @@
-// Import des données mockées
+// Import mocked data
 import {
   USER_MAIN_DATA,
   USER_ACTIVITY,
@@ -6,25 +6,25 @@ import {
   USER_PERFORMANCE,
 } from "../mock/data";
 
-// Constante pour basculer entre Mock et API
-const USE_MOCK = true; // Changez à false pour utiliser l'API
+// toggle between Mock and API
+const USE_MOCK = true; // true = mock / false = API
 
-// URL de base pour les appels à l'API
+// URL for API calls
 const BASE_URL = "http://localhost:3000/user";
 
-/**
- * Fonction utilitaire pour simuler un délai (utilisée dans le mode Mock).
- * @param {number} ms - Temps en millisecondes.
- */
+/*******
+ * Utility function to simulate a delay (used in Mock mode).
+ * @param {number} ms
+********/
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-/**
- * Normalisation des données principales de l'utilisateur.
- */
+/********
+ * Normalization of user core data.
+*********/
 const normalizeMainData = (data) => ({
   id: data.id,
   userInfos: data.userInfos,
-  todayScore: data.todayScore ?? data.score, // Uniformiser todayScore et score
+  todayScore: data.todayScore ?? data.score, // Standardize todayScore and score
   keyData: {
     calorieCount: data.keyData.calorieCount,
     proteinCount: data.keyData.proteinCount,
@@ -33,37 +33,37 @@ const normalizeMainData = (data) => ({
   },
 });
 
-/**
- * Normalisation des données d'activité de l'utilisateur.
- */
+/*******
+ * Normalization of user activity data.
+********/
 const normalizeActivityData = (data) => ({
   userId: data.userId,
   sessions: data.sessions.map((session, index) => ({
     ...session,
-    day: (index + 1).toString(), // Numéroter les jours de 1 à 7
+    day: (index + 1).toString(), // Number the days from 1 to 7
   })),
 });
 
-/**
- * Correspondance entre les jours et leurs abréviations.
- */
+/*******
+ * Correspondence between days and their abbreviations.
+*******/
 const dayAbbreviations = ["L", "M", "M", "J", "V", "S", "D"];
 
-/**
- * Normalisation des données de sessions moyennes de l'utilisateur.
- * Remplace "day" par l'abréviation correspondante (L, M, M, etc.).
- */
+/******
+* Normalizes average user session data.
+* Replaces "day" with the corresponding abbreviation (L, M, M, etc.).
+*******/
 const normalizeAverageSessionsData = (data) => ({
   userId: data.userId,
   sessions: data.sessions.map((session) => ({
     ...session,
-    day: dayAbbreviations[session.day - 1], // Mapper day sur les abréviations
+    day: dayAbbreviations[session.day - 1], // Mapper day on abbreviations
   })),
 });
 
-/**
- * Normalisation des données de performances de l'utilisateur.
- */
+/******
+ * Normalization of user performance data.
+********/
 
 const performanceLabels = {
   cardio: "Cardio",
@@ -79,13 +79,13 @@ const normalizePerformanceData = (data) => ({
   kind: data.kind,
   data: data.data.map((entry) => ({
     ...entry,
-    kindLabel: performanceLabels[data.kind[entry.kind]], // Traduire le label
+    kindLabel: performanceLabels[data.kind[entry.kind]], // Translate the label
   })),
 });
 
-/**
- * Récupérer les données principales d'un utilisateur.
- */
+/******
+ * Retrieve a user's primary data.
+*******/
 export const fetchUserMainData = async (userId) => {
   if (USE_MOCK) {
     const user = USER_MAIN_DATA.find((u) => u.id === userId);
@@ -100,9 +100,9 @@ export const fetchUserMainData = async (userId) => {
   return normalizeMainData(apiResponse.data);
 };
 
-/**
- * Récupérer l'activité d'un utilisateur.
- */
+/******
+ * Retrieve a user's activity.
+*******/
 export const fetchUserActivity = async (userId) => {
   if (USE_MOCK) {
     const activity = USER_ACTIVITY.find((a) => a.userId === userId);
@@ -117,9 +117,9 @@ export const fetchUserActivity = async (userId) => {
   return normalizeActivityData(apiResponse.data);
 };
 
-/**
- * Récupérer les sessions moyennes d'un utilisateur.
- */
+/*******
+ * Retrieve a user's average sessions.
+*******/
 export const fetchUserAverageSessions = async (userId) => {
   if (USE_MOCK) {
     const averageSessions = USER_AVERAGE_SESSIONS.find((a) => a.userId === userId);
@@ -134,9 +134,9 @@ export const fetchUserAverageSessions = async (userId) => {
   return normalizeAverageSessionsData(apiResponse.data);
 };
 
-/**
- * Récupérer les performances d'un utilisateur.
- */
+/********
+ * Retrieve a user's performance.
+*********/
 export const fetchUserPerformance = async (userId) => {
   if (USE_MOCK) {
     const performance = USER_PERFORMANCE.find((p) => p.userId === userId);
