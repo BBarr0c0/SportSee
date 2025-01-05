@@ -2,18 +2,15 @@ import PropTypes from "prop-types";
 
 const UserSelector = ({ users, onSelectUser }) => {
   return (
-    <div>
-      <h2>Sélectionnez un utilisateur :</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <button onClick={() => onSelectUser(user.id)}>
-              {user.userInfos.firstName} {user.userInfos.lastName}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="selectorContainer">
+      {users.map((user) => (
+        <li key={user.id}>
+          <button onClick={() => onSelectUser(user.id)}>
+            {user.userInfos.firstName} {user.userInfos.lastName}
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 };
 

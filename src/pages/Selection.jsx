@@ -1,6 +1,7 @@
 import UserSelector from "../components/UserSelector";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import '../styles/pages/_Selection.scss';
 
 const Selection = () => {
   const [users, setUsers] = useState([]);
@@ -33,7 +34,7 @@ const Selection = () => {
 
   return (
     <div>
-      <h1>Sélection d’un utilisateur</h1>
+      <h1 className="selectorTitle">Sélection d’un utilisateur</h1>
       <UserSelector users={users} onSelectUser={handleSelectUser} />
     </div>
   );

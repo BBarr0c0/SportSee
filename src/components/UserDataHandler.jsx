@@ -7,6 +7,7 @@ import {
   fetchUserPerformance,
 } from "../services/dataService";
 import NotFound from "../pages/NotFound";
+import "../styles/components/_UserDataHandler.scss";
 
 const UserDataHandler = () => {
   const { userId } = useParams();
@@ -79,7 +80,7 @@ const UserDataHandler = () => {
   }, [userId, location.pathname]);
 
   if (isLoading) {
-    return <div>Chargement des données...</div>;
+    return <div className="loadingContainer">Chargement des données...</div>;
   }
 
   if (error) {
@@ -87,7 +88,7 @@ const UserDataHandler = () => {
   }
 
   return (
-    <div>
+    <div className="dataContainer">
       <h1>Données pour l&apos;utilisateur ayant l&apos;ID : {userId}</h1>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>

@@ -1,0 +1,25 @@
+.selectorTitle {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 50px 0;
+}
+
+.selectorContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    button {
+        width: 250px;
+        height: 150px;
+        background-color: rgb(253, 171, 171);
+        border-radius: 50%;
+        margin: 50px;
+        cursor: pointer;
+        transition: background-color 0.5s;
+
+        &:hover {
+            background-color: rgb(172, 255, 149);
+        }
+    }
+}

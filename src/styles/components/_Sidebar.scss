@@ -1,0 +1,34 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    width: 117px;
+    background-color: black;
+    padding: 20px 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 0;
+
+    .sidebarIcons {
+        margin-top: 150px;
+
+        li {
+            margin: 20px 0;
+
+            img {
+                cursor: pointer;
+            }
+        }
+    }
+      
+    .sidebarCopyright {
+        color: white;
+        font-size: 12px;
+        transform: rotate(-90deg);
+        white-space: nowrap;
+    }
+
+}
