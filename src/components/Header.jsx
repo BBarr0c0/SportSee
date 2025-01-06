@@ -1,4 +1,5 @@
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 import "../styles/components/_Header.scss";
 
 const Header = () => {
@@ -10,7 +11,9 @@ const Header = () => {
       </div>
       <nav className="headerNav">
         <ul className="navContainer">
-          <li>Accueil</li>
+          <li>
+            <Link to="/Selection">Accueil</Link>
+          </li>
           <li>Profil</li>
           <li>Réglage</li>
           <li>Communauté</li>
