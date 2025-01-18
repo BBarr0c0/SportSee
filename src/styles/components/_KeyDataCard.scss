@@ -1,0 +1,30 @@
+.key-data-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #FBFBFB;
+    padding: 25px;
+    border-radius: 10px;
+    margin-left: 30px;
+    height: 124px;
+  
+    .cardIcon {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .cardInfo {
+      display: flex;
+      flex-direction: column;
+  
+      .cardValue {
+        font-weight: 700;
+        font-size: 24px;
+      }
+  
+      .cardLabel {
+        font-size: 14px;
+        color: #74798c;
+      }
+    }
+  }

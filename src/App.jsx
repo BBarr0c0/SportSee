@@ -10,13 +10,13 @@ const App = () => {
     <Router>
       <Header />
       <Sidebar />
-      <main>
+
         <Routes>
-          <Route path="/Selection" element={<Selection />} />
+          <Route path="/" element={<Selection />} />
           <Route path="/Profil/:userId" element={<Profil />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </main>
+
     </Router>
   );
 };

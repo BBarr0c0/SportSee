@@ -33,10 +33,10 @@ const Selection = () => {
   }
 
   return (
-    <div>
+    <main>
       <h1 className="selectorTitle">Sélection d’un utilisateur</h1>
       <UserSelector users={users} onSelectUser={handleSelectUser} />
-    </div>
+    </main>
   );
 };
 

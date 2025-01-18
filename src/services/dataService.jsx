@@ -74,14 +74,24 @@ const performanceLabels = {
   intensity: "Intensité",
 };
 
-const normalizePerformanceData = (data) => ({
-  userId: data.userId,
-  kind: data.kind,
-  data: data.data.map((entry) => ({
-    ...entry,
-    kindLabel: performanceLabels[data.kind[entry.kind]], // Translate the label
-  })),
-});
+const normalizePerformanceData = (data) => {
+  // Desired order
+  const performanceOrder = ["intensity", "speed", "strength", "endurance", "energy", "cardio"];
+  
+  const orderedData = performanceOrder.map((kind) => {
+    const entry = data.data.find((e) => data.kind[e.kind] === kind);
+    return {
+      ...entry,
+      kindLabel: performanceLabels[kind],
+    };
+  });
+
+  return {
+    userId: data.userId,
+    kind: data.kind,
+    data: orderedData,
+  };
+};
 
 /******
  * Retrieve a user's primary data.
