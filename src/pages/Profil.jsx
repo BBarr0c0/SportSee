@@ -8,25 +8,12 @@ import {
 import { useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import '../styles/pages/_Profil.scss';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  LineChart,
-  Line,
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
+
 import KeyDataCard from "../components/KeyDataCard";
+import ActivityBarChart from "../components/ActivityBarChart";
+import AverageSessionsChart from "../components/AverageSessionsChart";
+import PerformanceRadarChart from "../components/PerformanceRadarChart";
+import ScorePieChart from "../components/ScorePieChart";
 import calorieIcon from '../assets/calories-icon.svg';
 import proteinIcon from '../assets/protein-icon.svg';
 import carbIcon from '../assets/carbs-icon.svg';
@@ -89,8 +76,7 @@ const Profil = () => {
     return null;
   }
 
-  // Colors for pie chart
-  const COLORS = ["#E60000", "#FBFBFB"];
+
 
   return (
     <main>
@@ -102,166 +88,20 @@ const Profil = () => {
       </div>
 
       <div className="containerProfil">
+
         <div className="charts">
-          {/* BarChart: Activity */}
-          <div className="chart chart--bar">
-          <div className="chart-header">
-            <h2>Activité quotidienne</h2>
-            <div className="custom-legend">
-              <span><span className="dot black"></span> Poids (Kg)</span>
-              <span><span className="dot red"></span> Calories brûlées (Kcal)</span>
-            </div>
-          </div>
-            <ResponsiveContainer width="100%" height={320}>
-            <BarChart
-              data={activityData.sessions}
-              barGap={8}
-              margin={{
-                top: 100,
-                right: 40,
-                left: 80,
-                bottom: 40,
-              }}
-            >
 
-              <Tooltip 
-              />
-              <CartesianGrid 
-                strokeDasharray="3 3" 
-                vertical={false} 
-                stroke="#DEDEDE"
-              />
-              <XAxis 
-                dataKey="day" 
-                axisLine={{ stroke: 'grey' }}
-                tickLine={false} 
-                tick={{ color: '9B9EAC', fontSize: '14px', fontWeight: '500' }} 
-                dy={15}
-                scale='point'
-                padding={{ left: 10, right: 10 }}
-              />
-              <YAxis 
-                yAxisId="kilogram" 
-                orientation="right" 
-                tickCount={3} 
-                axisLine={false} 
-                tickLine={false} 
-                tickMargin={30} 
-                tick={{ color: '9B9EAC', fontSize: '14px', fontWeight: '500' }} 
-                domain={["dataMin - 1", "dataMax + 2"]} 
-              />
-              <YAxis 
-                yAxisId="calories" 
-                hide={true} 
-              />
-              <Bar 
-                yAxisId="kilogram" 
-                dataKey="kilogram" 
-                fill="#282D30" 
-                barSize={8} 
-                radius={[20, 20, 0, 0]} 
-              />
-              <Bar 
-                yAxisId="calories" 
-                dataKey="calories" 
-                fill="#E60000" 
-                barSize={8} 
-                unit="Kcal" 
-                radius={[20, 20, 0, 0]} 
-              />
-            </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <ActivityBarChart data={activityData.sessions} />
 
-          {/* LineChart: Average Sessions */}
-          <div className="chart chart--line" style={{ 
-            background: 'linear-gradient(to right, #E60000, #CE0000)', 
-            borderRadius: '5px', 
-            position: 'relative' 
-          }}>
+          <div className="charts-line-radar-pie">
 
-            <h2 style={{ color: 'rgba(255, 255, 255, 0.6)', marginBottom: '20px' }}>Durée moyenne des sessions</h2>
-
-            {/* dark red on the right */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: '30%',
-              background: 'rgba(0, 0, 0, 0.1)'
-            }}></div>
-
-            {/* Chart */}
-            <ResponsiveContainer width="100%" height={263}>
-              <LineChart 
-                data={averageSessionsData.sessions} 
-              >
-                {/* X axis without line, white ticks */}
-                <XAxis 
-                  dataKey="day" 
-                  tickLine={false} 
-                  axisLine={false} 
-                  tick={{ fill: '#FFFFFF', opacity: 0.7 }} 
-                />
-                <YAxis 
-                  dataKey="sessionLength" 
-                  hide={true} 
-                />
-                
-                <Tooltip 
-                  cursor={false} 
-                />
-                
-                {/* White line with opacity and active circle */}
-                <Line
-                  type="monotone"
-                  dataKey="sessionLength"
-                  stroke="#FFFFFF"
-                  strokeWidth={2}
-                  strokeOpacity={0.7}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-
-
-          {/* RadarChart: Performance */}
-          <div className="chart chart--radar">
-
-            <ResponsiveContainer width="100%" height={263}>
-              <RadarChart outerRadius="80%" data={performanceData.data}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="kindLabel" />
-                <Radar dataKey="value" stroke="#E60000" fill="#E60000" fillOpacity={0.6} />
-              </RadarChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* PieChart: Score */}
-          <div className="chart chart--pie">
-            <h2>Score</h2>
-            <ResponsiveContainer width="100%" height={263}>
-              <PieChart>
-                <Pie
-                  data={[{ value: userData.todayScore }, { value: 1 - userData.todayScore }]}
-                  dataKey="value"
-                  innerRadius="70%"
-                  outerRadius="80%"
-                  startAngle={90}
-                  endAngle={450}
-                  paddingAngle={5}
-                >
-                  {COLORS.map((color, index) => (
-                    <Cell key={`cell-${index}`} fill={color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-            <p>{userData.todayScore * 100}% de votre objectif</p>
+            <AverageSessionsChart data={averageSessionsData.sessions} />
+            <PerformanceRadarChart data={performanceData.data} />
+            <ScorePieChart score={userData.todayScore} />
+            
           </div>
         </div>
+
         {/* Key Data Cards */}
         <div className="key-data">
           <KeyDataCard
